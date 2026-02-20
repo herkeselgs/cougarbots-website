@@ -1,26 +1,342 @@
+/* app/globals.css */
+
+/* Tailwind layers */
 @import "tailwindcss";
 
+/* ---------------------------
+   Theme: Canterbury Cougarbots
+   (matches the intro sequence)
+   --------------------------- */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base */
+  --bg: #050816;              /* deep navy/near-black */
+  --bg-2: #070b1f;            /* slightly lighter navy */
+  --card: rgba(255, 255, 255, 0.06);
+  --card-2: rgba(255, 255, 255, 0.085);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-2: rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+  --muted-2: rgba(255, 255, 255, 0.52);
+
+  /* Brand (from logo vibe) */
+  --blue: #1e5bff;            /* electric blue */
+  --blue-2: #0b1fa8;          /* deep royal */
+  --gold: #ffc400;            /* accent gold */
+
+  /* Effects */
+  --shadow: 0 22px 70px rgba(0, 0, 0, 0.6);
+  --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.45);
+  --ring: 0 0 0 3px rgba(30, 91, 255, 0.35);
+  --radius: 18px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
+  /* Keep the site dark even in light mode for “cinematic” branding */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
   }
 }
 
+/* ---------------------------
+   Base reset / typography
+   --------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  font-synthesis-weight: none;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+/* Smoother selection */
+::selection {
+  background: rgba(30, 91, 255, 0.35);
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* Better focus outline */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: 10px;
+}
+
+/* Images: reduce layout surprises */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------------------------
+   Background “cinematic” base
+   (matches intro gradients)
+   --------------------------- */
+
+.cb-bg {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 520px at 22% 10%, rgba(30, 91, 255, 0.16), transparent 60%),
+    radial-gradient(900px 520px at 78% 12%, rgba(11, 31, 168, 0.14), transparent 62%),
+    radial-gradient(600px 320px at 50% 75%, rgba(255, 196, 0, 0.09), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+/* Optional subtle noise overlay */
+.cb-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ---------------------------
+   Cards / glass UI
+   --------------------------- */
+
+.cb-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.cb-card:hover {
+  border-color: var(--border-2);
+}
+
+.cb-card-strong {
+  background: var(--card-2);
+  border: 1px solid var(--border-2);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+/* Divider */
+.cb-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
+}
+
+/* ---------------------------
+   Buttons
+   --------------------------- */
+
+.cb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+  backdrop-filter: blur(10px);
+}
+
+.cb-btn:hover {
+  background: rgba(255, 255, 255, 0.095);
+  border-color: var(--border-2);
+  transform: translateY(-1px);
+}
+
+.cb-btn:active {
+  transform: translateY(0px);
+}
+
+.cb-btn-primary {
+  border-color: rgba(30, 91, 255, 0.55);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 91, 255, 0.30),
+    rgba(11, 31, 168, 0.22)
+  );
+  box-shadow: 0 18px 60px rgba(30, 91, 255, 0.14);
+}
+
+.cb-btn-primary:hover {
+  border-color: rgba(30, 91, 255, 0.75);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 91, 255, 0.40),
+    rgba(11, 31, 168, 0.26)
+  );
+}
+
+.cb-btn-gold {
+  border-color: rgba(255, 196, 0, 0.55);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 196, 0, 0.22),
+    rgba(255, 196, 0, 0.10)
+  );
+}
+
+.cb-btn-gold:hover {
+  border-color: rgba(255, 196, 0, 0.75);
+}
+
+/* ---------------------------
+   Text helpers
+   --------------------------- */
+
+.cb-muted {
+  color: var(--muted);
+}
+
+.cb-muted-2 {
+  color: var(--muted-2);
+}
+
+.cb-kicker {
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.cb-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.cb-lead {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Subtle underline accent (use sparingly) */
+.cb-accent-bar {
+  height: 3px;
+  width: 96px;
+  border-radius: 999px;
+  background: var(--gold);
+}
+
+/* ---------------------------
+   Inputs (contact page)
+   --------------------------- */
+
+.cb-input,
+.cb-textarea {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  padding: 0.85rem 0.95rem;
+  outline: none;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.cb-input:hover,
+.cb-textarea:hover {
+  border-color: var(--border-2);
+}
+
+.cb-input:focus,
+.cb-textarea:focus {
+  border-color: rgba(30, 91, 255, 0.70);
+  box-shadow: var(--ring);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cb-textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* ---------------------------
+   Utility: nice scrollbar
+   --------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* ---------------------------
+   Reduced motion support
+   --------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
