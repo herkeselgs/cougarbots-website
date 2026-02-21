@@ -15,7 +15,7 @@ type Tier = {
 const TIERS: Tier[] = [
   {
     name: "Title Sponsor",
-    amount: "$10,000+",
+    amount: "$5,000+",
     tagline: "Front-and-center partnership for our entire season.",
     highlights: [
       "Best fit for companies that want maximum student impact + maximum visibility",
@@ -36,7 +36,7 @@ const TIERS: Tier[] = [
   },
   {
     name: "Platinum",
-    amount: "$5,000",
+    amount: "$2,500 - $4,999",
     tagline: "High-impact support with major recognition.",
     highlights: [
       "A powerful tier for local engineering, manufacturing, and tech companies",
@@ -55,7 +55,7 @@ const TIERS: Tier[] = [
   },
   {
     name: "Gold",
-    amount: "$2,500",
+    amount: "$1,000 - $2,499",
     tagline: "Great visibility and real build-season impact.",
     highlights: [
       "Supports key robot subsystems, materials, and outreach",
@@ -73,7 +73,7 @@ const TIERS: Tier[] = [
   },
   {
     name: "Silver",
-    amount: "$1,000",
+    amount: "$500 - $999",
     tagline: "Keeps the team moving — every bit matters.",
     highlights: [
       "Helps cover tools, safety gear, batteries, and event costs",
@@ -91,7 +91,7 @@ const TIERS: Tier[] = [
   },
   {
     name: "Bronze",
-    amount: "$250",
+    amount: "$250 - $499",
     tagline: "An easy way to support STEM at our school.",
     highlights: [
       "Great entry-level sponsorship with real impact when many contribute",
