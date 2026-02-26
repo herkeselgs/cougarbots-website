@@ -126,10 +126,18 @@ function TierCard({ tier }: { tier: Tier }) {
   return (
     <div className={`${cardClass} relative overflow-hidden p-5 sm:p-6`}>
       {tier.featured && (
-        <div className="absolute right-4 top-4 rounded-full border border-[rgba(255,196,0,0.45)] bg-[rgba(255,196,0,0.10)] px-3 py-1 text-xs text-white/80">
-          Most Impact
-        </div>
-      )}
+  <div
+    className={[
+      "absolute z-10 rounded-full border border-[rgba(255,196,0,0.45)] bg-[rgba(255,196,0,0.10)] text-white/80",
+      // desktop stays EXACTLY the same
+      "right-4 top-4 px-3 py-1 text-xs",
+      // mobile-only tweak: lift it up + shrink slightly so it won't collide
+      "max-sm:right-3 max-sm:top-2 max-sm:px-2.5 max-sm:py-0.5 max-sm:text-[11px]",
+    ].join(" ")}
+  >
+    Most Impact
+  </div>
+)}
 
       <div className="flex items-start justify-between gap-4">
         <div>
